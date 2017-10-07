@@ -44,7 +44,7 @@ def flash_led(pin):
         GPIO.output(pin, True)  # Turn on GPIO pin
         time.sleep(0.1)
         GPIO.output(pin, False)  # Turn off GPIO pin
-        time.sleep(0.9)
+        time.sleep(0.4)
 
 
 def blink_led(pin):
