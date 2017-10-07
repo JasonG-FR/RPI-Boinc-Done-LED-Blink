@@ -32,12 +32,19 @@ def boinc_is_working():
                                stdout=subprocess.PIPE, shell=True)
     output, error = process.communicate()
     remaining_tasks = len(output.decode().split("\n")) - 1
-    print(f"{remaining_tasks} tasks remaining")
     
     if remaining_tasks > 0:
         return True
     else:
         return False
+
+
+def flash_led(pin):
+    for i in range(10):
+        GPIO.output(pin, True)  # Turn on GPIO pin
+        time.sleep(0.1)
+        GPIO.output(pin, False)  # Turn off GPIO pin
+        time.sleep(0.9)
 
 
 def blink_led(pin):
@@ -60,6 +67,9 @@ def main():
     pin = 40  # Setting the pin to 21
     GPIO.setmode(GPIO.BOARD)  # Use board pin numbering
     GPIO.setup(pin, GPIO.OUT)  # Setup GPIO pin to OUT
+    
+    # Flash the LED to show the system is working
+    flash_led(pin)
     
     # Check every minute if Boinc is still working (using boinccmd)
     while True:
