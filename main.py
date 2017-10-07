@@ -64,7 +64,7 @@ def blink_led(pin):
     
 
 def main():
-    pin = 40  # Setting the pin to 21
+    pin = 40  # Setting the pin to 40
     GPIO.setmode(GPIO.BOARD)  # Use board pin numbering
     GPIO.setup(pin, GPIO.OUT)  # Setup GPIO pin to OUT
     
