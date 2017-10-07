@@ -28,7 +28,8 @@ import RPi.GPIO as GPIO  # Import GPIO library
 
 def boinc_is_working():
     # Show the tasks being or waiting to be calculated : boinccmd --get_tasks | grep 'state: downloaded'
-    process = subprocess.Popen("boinccmd --get_tasks | grep 'state: downloaded'", stdout=subprocess.PIPE, shell=True)
+    process = subprocess.Popen("/usr/bin/boinccmd --get_tasks | /usr/bin/grep 'state: downloaded'",
+                               stdout=subprocess.PIPE, shell=True)
     output, error = process.communicate()
     remaining_tasks = len(output.decode().split("\n")) - 1
     print(f"{remaining_tasks} tasks remaining")
@@ -56,11 +57,11 @@ def blink_led(pin):
     
 
 def main():
-    pin = 21  # Setting the pin to 21
+    pin = 40  # Setting the pin to 21
     GPIO.setmode(GPIO.BOARD)  # Use board pin numbering
     GPIO.setup(pin, GPIO.OUT)  # Setup GPIO pin to OUT
     
-    # Check every minute if Boinc is still working (using top? using boinccmd?)
+    # Check every minute if Boinc is still working (using boinccmd)
     while True:
         if not boinc_is_working():
             # If not, blink the LED until Boinc is working again (checks every minute)
